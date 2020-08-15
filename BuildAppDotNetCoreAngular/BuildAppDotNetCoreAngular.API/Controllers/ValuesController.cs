@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BuildAppDotNetCoreAngular.API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BuildAppDotNetCoreAngular.API.Controllers
 {
@@ -20,17 +21,17 @@ namespace BuildAppDotNetCoreAngular.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetValues()
+        public async Task<IActionResult> GetValues()
         {
-            List<Value> values = _dbContext.Values.ToList();
+            List<Value> values = await _dbContext.Values.ToListAsync();
 
             return Ok(values);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetValue(int id)
+        public async Task<IActionResult> GetValue(int id)
         {
-            Value value = _dbContext.Values.Find(id);
+            Value value = await _dbContext.Values.FindAsync(id);
 
             if (value == null)
                 return NotFound();
