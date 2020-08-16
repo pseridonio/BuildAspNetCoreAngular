@@ -39,6 +39,8 @@ namespace MyAppWithAngular
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,7 +57,7 @@ namespace MyAppWithAngular
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())
             {
@@ -63,6 +65,16 @@ namespace MyAppWithAngular
             }
 
             app.UseRouting();
+
+            app.UseCors(configurePolicy: configurePolicy => configurePolicy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            //app.UseCors(configurePolicy: configurePolicy =>
+            //{
+            //    configurePolicy.AllowAnyOrigin();
+            //    configurePolicy.AllowAnyMethod();
+            //    configurePolicy.AllowAnyHeader();
+            //});
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
