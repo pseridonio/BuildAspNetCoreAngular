@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -6,7 +7,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using MyAppWithAngular.Data.Authentication;
 using System.IO;
+using System.Text;
 
 namespace MyAppWithAngular
 {
@@ -41,6 +45,21 @@ namespace MyAppWithAngular
             });
 
             services.AddCors();
+
+            services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
+
+            services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,12 +86,8 @@ namespace MyAppWithAngular
             app.UseRouting();
 
             app.UseCors(configurePolicy: configurePolicy => configurePolicy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-            //app.UseCors(configurePolicy: configurePolicy =>
-            //{
-            //    configurePolicy.AllowAnyOrigin();
-            //    configurePolicy.AllowAnyMethod();
-            //    configurePolicy.AllowAnyHeader();
-            //});
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
