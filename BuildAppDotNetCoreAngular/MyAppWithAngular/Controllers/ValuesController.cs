@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,8 +10,8 @@ using MyAppWithAngular.Models;
 
 namespace MyAppWithAngular.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    
+    [ApiController, Authorize, Route("api/[controller]")]
     public class ValuesController : ControllerBase
     {
         private DatabaseContext _dbContext;
@@ -20,7 +21,7 @@ namespace MyAppWithAngular.Controllers
             _dbContext = dbContext;
         }
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
         public async Task<IActionResult> GetValues()
         {
             List<Value> values = await _dbContext.Values.ToListAsync();
@@ -28,7 +29,8 @@ namespace MyAppWithAngular.Controllers
             return Ok(values);
         }
 
-        [HttpGet("{id}")]
+        
+        [HttpGet("{id}"), AllowAnonymous]
         public async Task<IActionResult> GetValue(int id)
         {
             Value value = await _dbContext.Values.FindAsync(id);

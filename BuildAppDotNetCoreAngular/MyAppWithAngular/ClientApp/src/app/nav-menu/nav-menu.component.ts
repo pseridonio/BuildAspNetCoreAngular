@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -7,12 +8,35 @@ import { Component } from '@angular/core';
 })
 export class NavMenuComponent {
   isExpanded = false;
+  model: any = {};
 
-  collapse() {
-    this.isExpanded = false;
+  constructor(private authService: AuthService) {
+
   }
 
-  toggle() {
-    this.isExpanded = !this.isExpanded;
+  ngOnInit() {
+
+  }
+
+  login() {
+    console.log(this.model);
+    this.authService.login(this.model).subscribe(
+      next => {
+        console.log('Logged in successfully')
+      },
+      error => {
+        console.log('Failed to login')
+      }
+    );
+  }
+
+  isLoggedIn() {
+    const token = localStorage.getItem('authToken');
+    return !!token;
+  }
+
+  logout() {
+    localStorage.removeItem('authToken');
+    console.log('logged out successfully');
   }
 }

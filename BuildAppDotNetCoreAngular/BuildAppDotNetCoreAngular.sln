@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildAppDotNetCoreAngular.API", "BuildAppDotNetCoreAngular.API\BuildAppDotNetCoreAngular.API.csproj", "{AA688070-CD24-4169-99F5-0BF03CEAE7C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAppWithAngular", "MyAppWithAngular\MyAppWithAngular.csproj", "{63E164DB-6FC6-4C12-87C3-126D9576AAE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyAppWithAngular", "MyAppWithAngular\MyAppWithAngular.csproj", "{63E164DB-6FC6-4C12-87C3-126D9576AAE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAppWithAngular.Resources", "MyAppWithAgular.Resources\MyAppWithAngular.Resources.csproj", "{B993E115-0BFB-43D3-BA1D-72A185FCB005}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{63E164DB-6FC6-4C12-87C3-126D9576AAE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63E164DB-6FC6-4C12-87C3-126D9576AAE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63E164DB-6FC6-4C12-87C3-126D9576AAE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B993E115-0BFB-43D3-BA1D-72A185FCB005}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B993E115-0BFB-43D3-BA1D-72A185FCB005}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B993E115-0BFB-43D3-BA1D-72A185FCB005}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B993E115-0BFB-43D3-BA1D-72A185FCB005}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -24,9 +24,7 @@ namespace MyAppWithAngular.Data.Authentication
         {
             User user = await _dbContext.Users.Where(dbUser => dbUser.UserName == userName).FirstOrDefaultAsync();
 
-            if (user == null) return null;
-
-            if (!VerifyPasswordHash(password, user.PasswordSalt, user.PasswordHash)) return null;
+            if (user == null || !VerifyPasswordHash(password, user.PasswordSalt, user.PasswordHash)) return null;
 
             return user;
         }
@@ -76,7 +74,8 @@ namespace MyAppWithAngular.Data.Authentication
 
             using (HMACSHA512 hmac = new HMACSHA512(passwordSalt))
             {
-                samePassword = passwordHash.Equals(hmac.ComputeHash(Encoding.UTF8.GetBytes(password)));
+                byte[] informedPassword = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+                samePassword = passwordHash.SequenceEqual(informedPassword);
                 hmac.Clear();
             }
 
