@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using MyAppWithAngular.Data.Authentication;
+using MyAppWithAngular.Helpers;
 using System.IO;
+using System.Net;
 using System.Text;
 
 namespace MyAppWithAngular
@@ -71,9 +75,23 @@ namespace MyAppWithAngular
             }
             else
             {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                app.UseExceptionHandler(builder => {
+                    builder.Run(async context =>
+                    {
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        IExceptionHandlerFeature exceptionHandler = context.Features.Get<IExceptionHandlerFeature>();
+
+                        if (exceptionHandler != null)
+                        {
+                            context.Response.AddApplicationError(exceptionHandler.Error.Message);
+                            await context.Response.WriteAsync(exceptionHandler.Error.Message);
+                        }
+                    });
+                });
+                
+                //app.UseExceptionHandler("/Error");
+                //// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                //app.UseHsts();
             }
 
             //app.UseHttpsRedirection();

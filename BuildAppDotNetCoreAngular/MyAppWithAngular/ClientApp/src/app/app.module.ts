@@ -12,6 +12,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { AuthService } from './services/auth.service';
 import { RegisterComponent } from './register/register.component';
 import { RegisterService } from './services/register.service';
+import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { RegisterService } from './services/register.service';
   ],
   providers: [
     AuthService,
-    RegisterService
+    RegisterService,
+    ErrorInterceptorProvider
   ],
   bootstrap: [AppComponent]
 })
