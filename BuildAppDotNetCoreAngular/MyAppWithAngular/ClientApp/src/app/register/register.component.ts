@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { RegisterService } from '../services/register.service';
+import { AlertifyService } from '../services/alertify.service';
 
 @Component({
   selector: 'app-register',
@@ -14,23 +15,23 @@ export class RegisterComponent {
   
 
   /** register ctor */
-  constructor(private registerService: RegisterService) {
+  constructor(private registerService: RegisterService, private alertify: AlertifyService) {
 
   }
 
   register() {
     this.registerService.registerNewUser(this.model).subscribe(
       () => {
-        console.log('Registration successfull');
+        this.alertify.success('Registration successfull');
       },
       error => {
-        console.log(error);
+        this.alertify.error(error);
       }
     );
   }
 
   cancel() {
     this.cancelRegister.emit(false);
-    console.log('canceled by the user');
+    this.alertify.message('canceled by the user');
   }
 }

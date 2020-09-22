@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { AlertifyService } from '../services/alertify.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -10,7 +11,7 @@ export class NavMenuComponent {
   isExpanded = false;
   model: any = {};
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private alertify: AlertifyService) {
 
   }
 
@@ -22,10 +23,10 @@ export class NavMenuComponent {
     console.log(this.model);
     this.authService.login(this.model).subscribe(
       next => {
-        console.log('Logged in successfully')
+        this.alertify.success('Logged in successfully')
       },
       error => {
-        console.log(error)
+        this.alertify.error(error)
       }
     );
   }
@@ -37,6 +38,6 @@ export class NavMenuComponent {
 
   logout() {
     localStorage.removeItem('authToken');
-    console.log('logged out successfully');
+    this.alertify.message('logged out successfully');
   }
 }
