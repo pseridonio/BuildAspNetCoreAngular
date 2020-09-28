@@ -1,0 +1,7 @@
+Módulo 6 - Aula 58
+- Criar um método no AuthService para obter o token decoidificado
+  Não é responsabilidade do app-component decodificar um token de autorização
+
+- Passar a guardas os dados decodificados do token no localStorage, para evitar processamento em todas as requisições
+  Guardar apenas os dados necessários
+

@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildAppDotNetCoreAngular.A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyAppWithAngular", "MyAppWithAngular\MyAppWithAngular.csproj", "{63E164DB-6FC6-4C12-87C3-126D9576AAE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAppWithAngular.Resources", "MyAppWithAgular.Resources\MyAppWithAngular.Resources.csproj", "{B993E115-0BFB-43D3-BA1D-72A185FCB005}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyAppWithAngular.Resources", "MyAppWithAgular.Resources\MyAppWithAngular.Resources.csproj", "{B993E115-0BFB-43D3-BA1D-72A185FCB005}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{330004AC-0677-437C-A4EB-AEC3F654A85C}"
+	ProjectSection(SolutionItems) = preProject
+		AjustesPessoais.txt = AjustesPessoais.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -11,7 +11,7 @@ export class NavMenuComponent {
   isExpanded = false;
   model: any = {};
 
-  constructor(private authService: AuthService, private alertify: AlertifyService) {
+  constructor(public authService: AuthService, private alertify: AlertifyService) {
 
   }
 
@@ -32,8 +32,7 @@ export class NavMenuComponent {
   }
 
   isLoggedIn() {
-    const token = localStorage.getItem('authToken');
-    return !!token;
+    return this.authService.isLoggedIn();
   }
 
   logout() {
